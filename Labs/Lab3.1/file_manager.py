@@ -11,10 +11,10 @@ class FileManager:
     def save(self, objects):
         with open(self.filename, 'w') as file:
             for obj in objects:
-                typename = obj.__class__.__name__
+                type_name = obj.__class__.__name__
                 name = obj.firstname + obj.lastname
                 data = obj.__dict__
-                file.write(f"{typename} {name}\n")
+                file.write(f"{type_name} {name}\n")
                 file.write(json.dumps(data, ensure_ascii=False, indent=2))
                 file.write(";\n")
     

@@ -12,7 +12,7 @@
 main
 .vscode
 *.sln
-
+*.txt
 
 #---------------C#----------------------------------------------------------------------------------------------------
 ## Ignore Visual Studio temporary files, build results, and

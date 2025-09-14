@@ -2,7 +2,7 @@ from file_manager import FileManager
 from student import Student
 from painter import Painter
 from farmer import Farmer
-import regex as re
+import re
 from os import remove, path
 
 class ConsoleMenu:
@@ -58,7 +58,6 @@ class ConsoleMenu:
                 self.objects.append(Farmer(fn, ln, bd, farm_location))
 
             elif choice == "4":
-                print(self.objects)
                 self.file_manager.save(self.objects)
                 print("Saved.")
 
