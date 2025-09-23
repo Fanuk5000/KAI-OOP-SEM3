@@ -35,8 +35,8 @@ class Student:
         
         Student.student_amount += 1
 
-    def student_info(self) -> None:
-        print(
+    def student_info(self) -> str:
+        return(
             f"My name and surname is {self.first_name} {self.last_name}, "
             f"son of {self.father_name}. I was born in {self.birthday_date}. "
             f"I study in course {self.course_number}, group {self.group_number}. My student ID is {self.student_id}."
@@ -60,6 +60,22 @@ class Student:
         else:
             print("You are already in the final course.")
 
-stud = Student("John", "Doe", "Smith", "12-11-2000", 2, 5)
-age = stud.calculate_age("12-11-2024")
-print(age)
+    def __add__(self, other: "Student") -> "Student":
+        if not isinstance(other, Student) and other != 0:
+            raise ValueError("Can only combine with another Student")
+        if other == 0:
+            return self
+        new_first_name = self.first_name if len(self.first_name) >= len(other.first_name) else other.first_name
+        new_last_name = self.last_name if len(self.last_name) >= len(other.last_name) else other.last_name
+        new_father_name = self.father_name if len(self.father_name) >= len(other.father_name) else other.father_name
+        new_birthday_date = self.birthday_date if len(self.birthday_date) >= len(other.birthday_date) else other.birthday_date
+        new_course_number = self.course_number + other.course_number
+        new_group_number = self.group_number + other.group_number
+        
+        return Student(new_first_name, new_last_name, new_father_name, new_birthday_date, new_course_number, new_group_number)
+
+    def __lt__(self, other: "Student") -> bool:
+        if not isinstance(other, Student):
+            raise ValueError("Can only compare with another Student")
+
+        return self.student_id < other.student_id

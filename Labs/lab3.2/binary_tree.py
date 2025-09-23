@@ -10,15 +10,6 @@ class BinaryTree(AbstractBinaryTree):
         
         def __repr__(self):
             return f"Node({self.value})"
-        
-        def __eq__(self, other: "BinaryTree.Node") -> bool:
-            if not isinstance(other, BinaryTree.Node):
-                return False
-            return (
-                self.value == other.value and
-                self.left == other.left and
-                self.right == other.right
-            )
 
     def __init__(self, value=None):
         self.root = self.Node(value)
@@ -66,7 +57,6 @@ class BinaryTree(AbstractBinaryTree):
 
         return tree_sum(self.root) < tree_sum(other.root)
         
-    # Ananalog of ICompare<T> in C#
  
     # IEnumerable: allow "for x in tree"
     def __iter__(self):
@@ -78,8 +68,3 @@ class BinaryTree(AbstractBinaryTree):
             yield from self._inorder(node.left)   # Left
             yield node.value                      # Root
             yield from self._inorder(node.right)  # Right
-            
-    def search(self, value):
-        pass
-    def delete(self, value):
-        pass

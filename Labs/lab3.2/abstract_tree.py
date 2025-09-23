@@ -5,10 +5,3 @@ class AbstractBinaryTree(ABC):
     def insert(self, value):
         pass
     
-    @abstractmethod
-    def delete(self, value):
-        pass
-
-    @abstractmethod
-    def search(self, value):
-        pass
