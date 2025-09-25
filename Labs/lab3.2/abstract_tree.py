@@ -10,5 +10,5 @@ class AbstractBinaryTree(ABC):
         pass
 
     @abstractmethod
-    def _inorder(self, node: Node | None):
+    def _inorder(self, node: None):
         pass
