@@ -5,3 +5,10 @@ class AbstractBinaryTree(ABC):
     def insert(self, value):
         pass
     
+    @abstractmethod
+    def _logical_insert(self, node, value):
+        pass
+
+    @abstractmethod
+    def _inorder(self, node: Node | None):
+        pass
