@@ -1,6 +1,6 @@
 import pickle
 from os import path
-from student import Student
+from Entities.student import Student
 import json
 import xml.etree.ElementTree as ET
 from xml.dom.minidom import parseString
@@ -22,7 +22,7 @@ def serialize_to_file(students: list[Student], filename: str, mode: str = "json"
     if mode == "json":
         with open(filename, "w", encoding="utf-8") as file:
             json.dump(couple_students, file, indent=4)
-    elif mode == "pickle":
+    elif mode == "bin":
         with open(filename, "wb") as file:
             pickle.dump(couple_students, file)
     elif mode == "xml":
@@ -35,22 +35,20 @@ def serialize_to_file(students: list[Student], filename: str, mode: str = "json"
         pretty_xml = parseString(xml_string).toprettyxml(indent="  ")
 
         # Write the pretty XML to a file
-        with open("students.xml", "w", encoding="utf-8") as file:
+        with open(filename, "w", encoding="utf-8") as file:
             file.write(pretty_xml)
 
 def deserialize_from_file(filename: str, set_mode: bool = False, mode: str = "json") -> list[Student] | tuple[Student, ...]:
     if mode == "json":
         with open(filename, "r", encoding="utf-8") as file:
             students_dicts = json.load(file)
-            clear_file(filename)
             if set_mode:
                 return tuple(Student(**student_dict) for student_dict in students_dicts)
             else:
                 return [Student(**student_dict) for student_dict in students_dicts]
-    elif mode == "pickle":
+    elif mode == "bin":
         with open(filename, "rb") as file:
             students_dicts = pickle.load(file)
-            clear_file(filename)
             
             return [Student(**student_dict) for student_dict in students_dicts]
     elif mode == "xml":
@@ -60,5 +58,4 @@ def deserialize_from_file(filename: str, set_mode: bool = False, mode: str = "js
         for student_elem in root.findall("student"):
             student_dict = {child.tag: child.text for child in student_elem}
             students_dicts.append(student_dict)
-        clear_file(filename)
         return [Student(**student_dict) for student_dict in students_dicts]
