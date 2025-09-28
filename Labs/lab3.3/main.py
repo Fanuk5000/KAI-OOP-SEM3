@@ -29,7 +29,7 @@ def main() -> int:
         Student("Alice", "Oil", "Brown", "03-03-2002", 3, 5),
         Student("Gregory", "Green", "Brown", "03-03-2002", 3, 3)
     ]
-
+    # JSON part ------------------------------------------
     serialize_to_file(students, JSON_FILENAME)
     deserialized_students_tpl: list[Student] | tuple[Student, ...] = deserialize_from_file(JSON_FILENAME, set_mode=True)
     
@@ -42,13 +42,19 @@ def main() -> int:
             print(f"Match: {student_tpl.first_name} {student_tpl.last_name}")
         else:
             print(f"Mismatch: {student_tpl.first_name} {student_tpl.last_name} != {student_lst.first_name} {student_lst.last_name}")
-    
+
+    # Binary part ------------------------------------------
     serialize_to_file(students, BINARY_FILENAME, mode="pickle")
     deserialized_students_bin: list[Student] | tuple[Student, ...] = deserialize_from_file(BINARY_FILENAME, mode="pickle")
     print_students(deserialized_students_bin)
 
-    
+    # XML part ------------------------------------------
+    serialize_to_file(students, "students.xml", mode="xml")
+    deserialized_students_xml: list[Student] | tuple[Student, ...] = deserialize_from_file("students.xml", mode="xml")
+    print_students(deserialized_students_xml)
+
     return 0
+
 # Example usage
 if __name__ == "__main__":
     main()
