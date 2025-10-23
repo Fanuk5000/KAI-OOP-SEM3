@@ -39,14 +39,14 @@ class IInternetService(Protocol):
     def on_traffic_exceeded(self, args: TrafficEventArgs) -> None: ...
 
 class InternetService:
-    def __init__(self, traffic_limit: float):
+    def __init__(self, traffic_limit: float, balance:int):
         self.traffic_limit = traffic_limit
         self.traffic_exceeded = Event()  # event instance
-        self.__balance = 0.0
+        self.__balance = balance
         self.__is_connected = False
     
     def use_internet(self, used_traffic: float):
-        if used_traffic > self.traffic_limit:
+        if used_traffic > self.traffic_limit and self.__balance > 0:
             exceeded = used_traffic - self.traffic_limit
             args = TrafficEventArgs(exceeded, self.traffic_limit, used_traffic)
             self.on_traffic_exceeded(args)
@@ -62,5 +62,4 @@ class InternetService:
             print("Access denied. Please top up your balance.")
    
     def on_traffic_exceeded(self, args: TrafficEventArgs):
-        # call all event handlers
         self.traffic_exceeded(self, args)

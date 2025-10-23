@@ -10,16 +10,18 @@ def main():
     def anonymous_func(value1: list[int], value2: list[int]) -> list[bool]:
         return [bool(x == y) for x, y in zip(value1, value2)]
     
+    # delegat analog link to func
     anonymous_method = anonymous_func
     print(anonymous_method(arr, arr2))
     print(lambda_func(arr, arr2))
     # Exercise 2
-    service = InternetService(traffic_limit=3.0)
+    service = InternetService(traffic_limit=20.0, balance = 50)
     
     # sends a lambda as an event handler to a list
     service.traffic_exceeded += lambda sender, args: print(f"Traffic exceeded: {args.traffic_amount} GB")
     service.use_internet(5)
     service.use_internet(7)
+    service.use_internet(100)
 
 
 if __name__ == "__main__":
