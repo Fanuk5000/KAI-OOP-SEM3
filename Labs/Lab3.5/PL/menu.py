@@ -39,8 +39,7 @@ class Menu:
                         self.exit_program,
                         self.service.find_2_course_who_born_in_winter,
                         self.service.increase_age_when_birthday]
-            ACTIONS = dict([(str(i + 1), COMMANDS[i]) for i in range(len(COMMANDS))])
-
+            ACTIONS = dict([(int(i + 1), COMMANDS[i]) for i in range(len(COMMANDS))])
             for key, value in ACTIONS.items():
                 if choice == key:
                     result = ACTIONS[key]()
